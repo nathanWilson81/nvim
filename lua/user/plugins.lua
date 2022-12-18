@@ -87,6 +87,7 @@ return packer.startup(function(use)
   use { "p00f/nvim-ts-rainbow", commit = "064fd6c0a15fae7f876c2c6dd4524ca3fad96750" }
   use { "nvim-treesitter/playground", commit = "3421bbbfec25a7c54ee041ffb9cb226b69b2b995" }
   use { "windwp/nvim-autopairs", commit = "b5994e6547d64f781cfca853a1aa6174d238fe0e" }
+  use { "kylechui/nvim-surround", commit = "6cc6b54d3728a17e34bb5c9b9db05c7e5690813d" }
 
   use { 'lewis6991/impatient.nvim', commit = "9f7eed8133d62457f7ad2ca250eb9b837a4adeb7" }
 
