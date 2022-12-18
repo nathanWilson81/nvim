@@ -1,4 +1,5 @@
 # Neovim Config
+Highly based around basic-nvim-ide and neovim from scratch from https://github.com/LunarVim
 
 ## Dependencies
 - Ripgrep
