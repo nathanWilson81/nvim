@@ -16,4 +16,7 @@ configs.setup {
     enable = true,
     enable_autocmd = false
   },
+  rainbow = {
+    enable = true
+  }
 }
