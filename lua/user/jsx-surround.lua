@@ -1,12 +1,16 @@
-local queries = require("nvim-treesitter.query")
+local queries = require("vim.treesitter.query")
 
 local ts_utils = require("nvim-treesitter.ts_utils")
-local ts_parsers = require("nvim-treesitter.parsers")
 
 local M = {}
 
 local get_master_node = function()
   local node = ts_utils.get_node_at_cursor()
+  local root = ts_utils.get_root_for_node(node)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local best_distance = 99
+
+  local jsx_node
 
   if node == nil then
     error('No Treesitter parser found')
@@ -16,29 +20,22 @@ local get_master_node = function()
     return node
   end
 
-  --[[ local query = queries.get_query(lang, "jsx_element") ]]
+  local query = queries.parse_query("tsx", "((jsx_element) @capture)")
 
-  local bufnr = vim.api.nvim_get_current_buf()
-  local matches = queries.get_capture_matches_recursively(bufnr, "@jsx_element", "jsx_element")
-
-  print(table.getn(matches))
-
-  for _, match in ipairs(matches) do
-    print(match)
-    local start, stop
-    start, _, stop = match.node:range()
-    print(start, stop)
+  for _, query_node in query:iter_captures(root, bufnr) do
+    local query_row              = query_node:range() -- range of the capture
+    local node_row               = node:range()
+    local distance_to_query_node = math.abs(query_row - node_row)
+    if (distance_to_query_node == 0) then
+      return query_node
+    end
+    if (distance_to_query_node < best_distance and query_row < node_row) then
+      best_distance = distance_to_query_node
+      jsx_node = query_node
+    end
   end
 
-  --[[ local start_row = node:start() ]]
-  --[[ local parent = node:parent() ]]
-
-  --[[ while (parent ~= nil and parent:start() == start_row) do ]]
-  --[[   node = parent ]]
-  --[[   parent = node:parent() ]]
-  --[[ end ]]
-
-  return node
+  return jsx_node
 end
 
 M.surround = function(tagName)
