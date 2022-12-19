@@ -34,4 +34,4 @@ map('v', '<C-F>', 'y:Telescope live_grep <C-R>"<cr>', options)
 map('v', 'J', ":m '>+1<CR>gv=gv", options)
 map('v', 'K', ":m '<-2<CR>gv=gv", options)
 
-vim.cmd [[ command! -nargs=1 JSXSurround execute 'lua require "user.jsx-surround".surround(<f-args>)' ]]
+vim.cmd [[ command! -nargs=1 JSXSurround execute 'lua require "user.jsx-surround.lua".surround(<f-args>)' ]]
