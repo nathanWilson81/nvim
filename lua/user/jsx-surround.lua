@@ -52,6 +52,8 @@ M.surround = function(tagName)
   table.insert(start_text, end_tag)
 
   vim.api.nvim_buf_set_text(bufnr, start_row, start_col, end_row, end_col, start_text)
+
+  vim.cmd(":Format")
 end
 
 return M
