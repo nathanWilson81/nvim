@@ -77,8 +77,7 @@ return packer.startup(function(use)
 	use({ "jose-elias-alvarez/typescript.nvim", commit = "447a16d392652a792e45475ef6c75f297951c271" }) -- Typescript specific helper functions
 
 	-- Telescope
-	use({ "nvim-telescope/telescope.nvim", commit = "cabf991b1d3996fa6f3232327fc649bbdf676496" })
-	use({ "nvim-telescope/telescope-ui-select.nvim", commit = "62ea5e58c7bbe191297b983a9e7e89420f581369" })
+	use({ "ibhagwan/fzf-lua" })
 
 	-- Treesitter
 	use({
