@@ -10,9 +10,6 @@ return {
         'saadparwaiz1/cmp_luasnip',
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-nvim-lua',
-        -- Snippets
-        'L3MON4D3/LuaSnip',
-        'rafamadriz/friendly-snippets',
     },
     config = function()
         local autoformat_filetypes = {
@@ -134,7 +131,6 @@ return {
 
         local cmp = require('cmp')
 
-        require('luasnip.loaders.from_vscode').lazy_load()
 
         vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
@@ -150,12 +146,6 @@ return {
                 { name = 'path' },
                 { name = 'nvim_lsp' },
                 { name = 'buffer',  keyword_length = 3 },
-                { name = 'luasnip', keyword_length = 2 },
-            },
-            snippet = {
-                expand = function(args)
-                    require('luasnip').lsp_expand(args.body)
-                end,
             },
             formatting = {
                 fields = { 'abbr', 'menu', 'kind' },
@@ -201,28 +191,6 @@ return {
 
                 -- go to previous item
                 ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = 'select' }),
-
-                -- navigate to next snippet placeholder
-                ['<C-d>'] = cmp.mapping(function(fallback)
-                    local luasnip = require('luasnip')
-
-                    if luasnip.jumpable(1) then
-                        luasnip.jump(1)
-                    else
-                        fallback()
-                    end
-                end, { 'i', 's' }),
-
-                -- navigate to the previous snippet placeholder
-                ['<C-b>'] = cmp.mapping(function(fallback)
-                    local luasnip = require('luasnip')
-
-                    if luasnip.jumpable(-1) then
-                        luasnip.jump(-1)
-                    else
-                        fallback()
-                    end
-                end, { 'i', 's' }),
             }),
         })
     end
