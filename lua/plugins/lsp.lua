@@ -164,30 +164,20 @@ return {
                 ['<CR>'] = cmp.mapping.confirm({ select = false }),
 
                 -- scroll documentation window
-                ['<C-f>'] = cmp.mapping.scroll_docs(5),
+                ["<C-k>"] = cmp.mapping.select_prev_item(),
+                ["<C-j>"] = cmp.mapping.select_next_item(),
+                ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+                ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
                 ['<C-u>'] = cmp.mapping.scroll_docs(-5),
 
                 -- toggle completion menu
-                ['<C-e>'] = cmp.mapping(function(fallback)
+                ['<C-Space>'] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.abort()
                     else
                         cmp.complete()
                     end
                 end),
-
-                -- tab complete
-                ['<Tab>'] = cmp.mapping(function(fallback)
-                    local col = vim.fn.col('.') - 1
-
-                    if cmp.visible() then
-                        cmp.select_next_item({ behavior = 'select' })
-                    elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-                        fallback()
-                    else
-                        cmp.complete()
-                    end
-                end, { 'i', 's' }),
 
                 -- go to previous item
                 ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = 'select' }),
